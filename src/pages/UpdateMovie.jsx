@@ -3,11 +3,13 @@ import { useForm } from "react-hook-form";
 import ReactStarsRating from "react-awesome-stars-rating";
 import Select from "react-select";
 import { AuthContext } from "../providers/AuthProvider";
+import { useLocation } from "react-router-dom";
 
-const AddMovie = () => {
+const UpdateMovie = () => {
     const {user}=useContext(AuthContext)
+    const {state}=useLocation()
     const { register, handleSubmit, setValue, trigger, formState: { errors } } = useForm();
-    const [rating, setRating] = useState(0);
+    const [rating, setRating] = useState(state.rating || 0);
     const genresOptions = [
         { value: "Comedy", label: "Comedy" },
         { value: "Drama", label: "Drama" },
@@ -45,40 +47,40 @@ const AddMovie = () => {
         setValue("rating", newRating);
         trigger("rating");
     };
-
+    
     const onSubmit = async (data) => {
-        
-
-        const movie = {
+        const updatedMovie = {
             ...data,
             genres: data.genres.map(g => g.value),
             year: data.year.value,
             rating: data.rating,
             duration: parseFloat(data.duration),
-            email:user.email
-
+            email: user.email,
         };
-
-        const response = await fetch("https://portal-backend-seven.vercel.app/add", {
-            method: "POST",
+        
+        console.log(updatedMovie);  // Now you're logging the correct object
+    
+        const response = await fetch(`https://portal-backend-seven.vercel.app/update/${state._id}`, {
+            method: "PUT",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(movie),
+            body: JSON.stringify(updatedMovie),  // Send the updated movie object
         });
-
+    
         const result = await response.json();
-       
-        alert("Movie added successfully!");
+        alert("Movie updated successfully!");
     };
+    
+    
     return (
         <div>
             <div className="max-w-xl mx-auto p-5">
-                <h2 className="text-2xl font-bold mb-4">Add Movie</h2>
+                <h2 className="text-2xl font-bold mb-4">Update Movie</h2>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
 
                     {/* Movie Poster */}
                     <div>
                         <label className="block font-medium">Movie Poster URL</label>
-                        <input type="url" className="w-full border p-2 rounded"
+                        <input type="url" className="w-full border p-2 rounded" defaultValue={state.poster}
                             {...register("poster", {
                                 required: "Poster URL is required",
                                 pattern: { value: /^(http|https):\/\/[^ "\n]+$/, message: "Invalid URL" }
@@ -89,7 +91,7 @@ const AddMovie = () => {
                     {/* Movie Title */}
                     <div>
                         <label className="block font-medium">Movie Title</label>
-                        <input type="text" className="w-full border p-2 rounded"
+                        <input type="text" className="w-full border p-2 rounded" defaultValue={state.title}
                             {...register("title", {
                                 required: "Title is required",
                                 minLength: { value: 2, message: "Title must be at least 2 characters" }
@@ -101,6 +103,7 @@ const AddMovie = () => {
                     <div>
                         <label className="block font-medium">Genre</label>
                         <Select
+                            defaultValue={state.genres.map(g => ({ value: g, label: g }))} // Set default value
                             isMulti
                             options={genresOptions}
                             onChange={handleGenresChange}
@@ -128,7 +131,7 @@ const AddMovie = () => {
                                 }),
                             }}
                         />
-                        <input type="hidden" {...register("genres", {
+                        <input type="hidden" defaultValue={state.genres.map(g => ({ value: g, label: g }))} {...register("genres", {
                                 required: "Genres is required",
                                 
                             })}/>
@@ -138,7 +141,7 @@ const AddMovie = () => {
                     {/* Duration */}
                     <div>
                         <label className="block font-medium">Duration (minutes)</label>
-                        <input type="number" className="w-full border p-2 rounded"
+                        <input type="number" className="w-full border p-2 rounded" defaultValue={state.duration}
                             {...register("duration", {
                                 required: "Duration is required",
                                 min: { value: 60, message: "Duration must be at least 60 minutes" }
@@ -150,6 +153,7 @@ const AddMovie = () => {
                     <div>
                         <label className="block font-medium">Release Year</label>
                         <Select
+                            defaultValue={years.find(y => y.value === state.year)} // Set default value
                             options={years}
                             onChange={handleYearChange}
                             placeholder="Select Year"
@@ -176,7 +180,7 @@ const AddMovie = () => {
                                 }),
                             }}
                         />
-                        <input type="hidden" {...register("year", {
+                        <input type="hidden" value={years.find(y => y.value === state.year)} {...register("year", {
                                 required: "Year is required",
                                 
                             })}/>
@@ -188,6 +192,7 @@ const AddMovie = () => {
                         <label className="block font-medium">Rating</label>
                         <div className="flex items-center">
                             <ReactStarsRating
+                                
                                 value={rating}
                                 onChange={handleRating}
                                 isHalf={true}
@@ -197,7 +202,7 @@ const AddMovie = () => {
                                 activeColor="gold"
                             />
                         </div>
-                        <input type="hidden" {...register("rating", {
+                        <input type="hidden" value={rating} {...register("rating", {
                                 required: "rating is required",
                                 
                             })}/>
@@ -207,7 +212,7 @@ const AddMovie = () => {
                     {/* Summary */}
                     <div>
                         <label className="block font-medium">Summary</label>
-                        <textarea className="w-full border p-2 rounded" rows={3}
+                        <textarea className="w-full border p-2 rounded" rows={3} defaultValue={state.summary}
                             {...register("summary", {
                                 required: "Summary is required",
                                 minLength: { value: 10, message: "Summary must be at least 10 characters" }
@@ -215,11 +220,11 @@ const AddMovie = () => {
                         {errors.summary && <p className="text-red-500">{errors.summary.message}</p>}
                     </div>
 
-                    <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">Add Movie</button>
+                    <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">Update Movie</button>
                 </form>
             </div>
         </div>
     );
 };
 
-export default AddMovie;
+export default UpdateMovie;

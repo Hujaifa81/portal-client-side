@@ -8,6 +8,7 @@ import Home from "../pages/Home";
 import Details from "../pages/Details";
 import AllMovies from "../pages/AllMovies";
 import MyFavorite from "../pages/MyFavorite";
+import UpdateMovie from "../pages/UpdateMovie";
 
 export const router = createBrowserRouter([
     {
@@ -17,7 +18,7 @@ export const router = createBrowserRouter([
         {
             path:'/',
             element: <Home></Home>,
-            loader:()=>fetch("http://localhost:5000/sorted-movies")
+            loader:()=>fetch("https://portal-backend-seven.vercel.app/sorted-movies")
             
         },
         {
@@ -28,17 +29,21 @@ export const router = createBrowserRouter([
         {
           path:'/details/:id',
           element:<Details></Details>,
-          loader:({params})=>fetch(`http://localhost:5000/movie/${params.id}`)
+          loader:({params})=>fetch(`https://portal-backend-seven.vercel.app/movie/${params.id}`)
         },
         {
           path:'/all-movies',
           element:<AllMovies></AllMovies>,
-          loader:()=>fetch("http://localhost:5000/movies")
+          loader:()=>fetch("https://portal-backend-seven.vercel.app/movies")
         },
         {
           path:'/my-favorites/:email',
           element:<MyFavorite></MyFavorite>,
-          loader:({params})=>fetch(`http://localhost:5000/favorite-movies/${params.email}`)
+          loader:({params})=>fetch(`https://portal-backend-seven.vercel.app/favorite-movies/${params.email}`)
+        },
+        {
+          path:'/update-movie',
+          element:<UpdateMovie></UpdateMovie>
         }
       ]
     },

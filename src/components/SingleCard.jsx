@@ -24,7 +24,7 @@ const SingleCard = ({ movie,favorite }) => {
         }).then(async (result) => {  
             if (result.isConfirmed) {
                 try {
-                    const response = await fetch(`http://localhost:5000/delete-favoriteMovie/${_id}`, {
+                    const response = await fetch(`https://portal-backend-seven.vercel.app/delete-favoriteMovie/${_id}`, {
                         method: "DELETE",
                         headers: { "Content-Type": "application/json" }
                     });

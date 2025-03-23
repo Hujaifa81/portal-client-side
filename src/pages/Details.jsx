@@ -1,7 +1,7 @@
 import React, {  useContext, useEffect, useState } from "react";
 import AwesomeStarsRating from "react-awesome-stars-rating";
 import toast from "react-hot-toast";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import StarRatings from "react-star-ratings";
 import Swal from "sweetalert2";
 import { AuthContext } from "../providers/AuthProvider";
@@ -13,7 +13,7 @@ const Details = () => {
     const [favorite,setFavorite]=useState(false)
     useEffect(() => {
         if (user && user.email) {  
-            fetch(`http://localhost:5000/find-favorite-movie?email=${user.email}&movieId=${movie._id}`)
+            fetch(`https://portal-backend-seven.vercel.app/find-favorite-movie?email=${user.email}&movieId=${movie._id}`)
                 .then(res => res.json())
                 .then(data => {
                     if (data) {
@@ -33,7 +33,7 @@ const Details = () => {
             
         }
         
-        const response = await fetch("http://localhost:5000/add-favorite", {
+        const response = await fetch("https://portal-backend-seven.vercel.app/add-favorite", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(favoriteMovie),
@@ -56,7 +56,7 @@ const Details = () => {
         }).then(async (result) => {  
             if (result.isConfirmed) {
                 try {
-                    const response = await fetch(`http://localhost:5000/delete/${movie._id}`, {
+                    const response = await fetch(`https://portal-backend-seven.vercel.app/delete/${movie._id}`, {
                         method: "DELETE",
                         headers: { "Content-Type": "application/json" }
                     });
@@ -67,10 +67,10 @@ const Details = () => {
     
                     if (data.deletedCount === 1) {
                         toast.success("Movie deleted successfully!");
-                        const response = await fetch(`http://localhost:5000/find-favorite-movie?email=${user.email}&movieId=${movie._id}`);
+                        const response = await fetch(`https://portal-backend-seven.vercel.app/find-favorite-movie?email=${user.email}&movieId=${movie._id}`);
                         const data = await response.json();
                         if (data) {
-                            const response = await fetch(`http://localhost:5000/delete-favoriteMovie-with-email-movieId?email=${user.email}&movieId=${movie._id}`, {
+                            const response = await fetch(`https://portal-backend-seven.vercel.app/delete-favoriteMovie-with-email-movieId?email=${user.email}&movieId=${movie._id}`, {
                                 method: "DELETE",
                                 headers: { "Content-Type": "application/json" }
                             });
@@ -151,6 +151,7 @@ const Details = () => {
                 <div className="flex space-x-4 mt-4">
                     <button className="btn btn-primary" onClick={handleDelete}>Delete Movie</button>
                     <button className="btn btn-outline" disabled={favorite} onClick={handleAddToFavorite}>Add to Favorite</button>
+                    <button className="btn btn-primary"><Link to='/update-movie' state={movie}>Update Movie</Link></button>
                 </div>
             </div>
         </div>

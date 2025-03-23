@@ -6,7 +6,7 @@ const AllMovies = () => {
     const [movies,setMovies] = useState(useLoaderData())
     const [search, setSearch] = useState('')
     useEffect(() => {
-        fetch(`http://localhost:5000/movies?search=${search}`)
+        fetch(`https://portal-backend-seven.vercel.app/movies?search=${search}`)
             .then(res => res.json())
             .then(data => {
                 setMovies(data)
