@@ -11,11 +11,13 @@ import MyFavorite from "../pages/MyFavorite";
 import UpdateMovie from "../pages/UpdateMovie";
 import AboutUs from "../pages/AboutUs";
 import ContactUs from "../pages/ContactUs";
+import ErrorPage from "../pages/ErrorPage";
 
 export const router = createBrowserRouter([
     {
       path: "/",
       element: <MainLayout></MainLayout>,
+      errorElement:<ErrorPage></ErrorPage>,
       children: [
         {
             path:'/',

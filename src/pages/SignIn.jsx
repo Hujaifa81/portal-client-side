@@ -39,8 +39,8 @@ const SignIn = () => {
     }
     return (
         <div>
-            <div className="max-w-xl mx-auto p-5">
-                <h2 className="text-2xl font-bold mb-4">Sign In</h2>
+            <div className="max-w-xl mx-auto p-5 flex flex-col justify-center py-8">
+                <h2 className="text-2xl font-bold mb-4 text-center">Sign In</h2>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
 
                     <div>
@@ -70,8 +70,9 @@ const SignIn = () => {
                             Forgot password?
                         </Link>
                     </div>
-                    <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">Sign In</button>
-                    <button className="btn btn-neutral mt-2 bg-white text-black block" type="button" onClick={handleGoogle}>Sign in with Google</button>
+                    <button type="submit" className="bg-red-600 text-white px-4 py-2 rounded w-full">Sign In</button>
+                    <button className="btn btn-neutral mt-2 bg-white text-black block w-full" type="button" onClick={handleGoogle}>Sign in with Google</button>
+                    <p>Don't have an account?<span className='text-red-600'><Link to='/sign-up'> Sign up</Link></span></p>
                 </form>
             </div>
         </div>

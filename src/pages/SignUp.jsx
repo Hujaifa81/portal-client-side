@@ -76,7 +76,7 @@ const SignUp = () => {
                 </div>
 
                 <button type="submit" className="bg-red-600 text-white px-4 py-2 rounded w-full">Sign Up</button>
-                <p>Already have an account?<span className='text-red-600'><Link to='/sign-in'>Sign in</Link></span></p>
+                <p>Already have an account?<span className='text-red-600'><Link to='/sign-in'> Sign in</Link></span></p>
             </form>
         </div>
     );
