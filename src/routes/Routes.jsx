@@ -12,6 +12,7 @@ import UpdateMovie from "../pages/UpdateMovie";
 import AboutUs from "../pages/AboutUs";
 import ContactUs from "../pages/ContactUs";
 import ErrorPage from "../pages/ErrorPage";
+import PrivateRoute from "../pages/PrivateRoute";
 
 export const router = createBrowserRouter([
     {
@@ -27,12 +28,12 @@ export const router = createBrowserRouter([
         },
         {
             path:'/add-movie',
-            element: <AddMovie></AddMovie>
+            element: <PrivateRoute><AddMovie></AddMovie></PrivateRoute>
 
         },
         {
           path:'/details/:id',
-          element:<Details></Details>,
+          element:<PrivateRoute><Details></Details></PrivateRoute>,
           loader:({params})=>fetch(`https://portal-backend-seven.vercel.app/movie/${params.id}`)
         },
         {
@@ -42,12 +43,12 @@ export const router = createBrowserRouter([
         },
         {
           path:'/my-favorites/:email',
-          element:<MyFavorite></MyFavorite>,
+          element:<PrivateRoute><MyFavorite></MyFavorite></PrivateRoute>,
           loader:({params})=>fetch(`https://portal-backend-seven.vercel.app/favorite-movies/${params.email}`)
         },
         {
           path:'/update-movie',
-          element:<UpdateMovie></UpdateMovie>
+          element:<PrivateRoute><UpdateMovie></UpdateMovie></PrivateRoute>
         },
         {
           path:'/about-us',
