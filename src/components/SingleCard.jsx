@@ -94,7 +94,7 @@ const SingleCard = ({ movie,favorite }) => {
                     Delete Favorite
                     </button>
                 </div>:<div className="pt-2">
-                    <Link to={`/details/${_id}`}  className="btn btn-primary w-full text-center">
+                    <Link to={`/details/${_id}`}  className="btn bg-red-600 w-full text-center text-white">
                         See Details
                     </Link>
                 </div>

@@ -12,7 +12,7 @@ const TrendingMovies = () => {
     
     return (
         <div className="max-w-6xl mx-auto px-4 py-10">
-             <h2 className="text-3xl font-bold mb-2 text-center">Trending Movies🔥</h2>
+             <h2 className="text-3xl font-bold mb-2 text-center text-red-600">Trending Movies🔥</h2>
              <p className="text-gray-500 mb-4 font-medium text-lg text-center">Discover the hottest movies everyone is talking about right now!</p>
              <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
                 {

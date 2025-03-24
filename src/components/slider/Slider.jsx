@@ -22,7 +22,7 @@ import { Pagination } from 'swiper/modules';
   };
 
   return (
-    <div className="h-[88vh] w-full">
+    <div className="h-[88vh] w-full relative z-0">
       <Swiper pagination={pagination} modules={[Pagination]} className="mySwiper">
         
         {/* Slide 1 */}

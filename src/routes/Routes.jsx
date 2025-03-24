@@ -9,6 +9,8 @@ import Details from "../pages/Details";
 import AllMovies from "../pages/AllMovies";
 import MyFavorite from "../pages/MyFavorite";
 import UpdateMovie from "../pages/UpdateMovie";
+import AboutUs from "../pages/AboutUs";
+import ContactUs from "../pages/ContactUs";
 
 export const router = createBrowserRouter([
     {
@@ -44,6 +46,14 @@ export const router = createBrowserRouter([
         {
           path:'/update-movie',
           element:<UpdateMovie></UpdateMovie>
+        },
+        {
+          path:'/about-us',
+          element:<AboutUs></AboutUs>
+        },
+        {
+          path:'/contact-us',
+          element:<ContactUs></ContactUs>
         }
       ]
     },

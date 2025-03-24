@@ -5,11 +5,12 @@ import { AuthContext } from '../providers/AuthProvider';
 const Nav = () => {
     const { user, logOut } = useContext(AuthContext)
     const navigate = useNavigate()
+    
     return (
         <div>
-            <div className="navbar bg-gray-400  bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10  shadow-sm px-4">
+            <div className="navbar  px-4 relative z-10 bg-gray-400  bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10  shadow-sm">
                 <div className="navbar-start">
-                    <a className="btn btn-ghost text-xl px-0">daisyUI</a>
+                    <Link to='/'><span className="text-xl px-0 font-bold">StreamFlix</span></Link>
                 </div>
                 <div className="navbar-center hidden lg:flex font-bold">
                     <ul className="menu menu-horizontal px-1 gap-4">
