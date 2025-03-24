@@ -1,23 +1,27 @@
 import React, { useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../providers/AuthProvider';
 
 const Nav = () => {
     const { user, logOut } = useContext(AuthContext)
     const navigate = useNavigate()
-    
+
     return (
         <div>
             <div className="navbar  px-4 relative z-10 bg-gray-400  bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10  shadow-sm">
                 <div className="navbar-start">
-                    <Link to='/'><span className="text-xl px-0 font-bold">StreamFlix</span></Link>
+                    <NavLink to='/'><span className="text-xl px-0 font-bold">StreamFlix</span></NavLink>
                 </div>
                 <div className="navbar-center hidden lg:flex font-bold">
-                    <ul className="menu menu-horizontal px-1 gap-4">
-                        <Link to='/'>Home</Link>
-                        <Link to='all-movies'>All Movies</Link>
-                        <Link to='/add-movie'>Add Movie</Link>
-                        <Link to={`/my-favorites/${user?.email}`}>My Favorites</Link>
+                    <ul className="menu menu-horizontal px-1 gap-4 items-center">
+                        <NavLink to='/' className={({ isActive, isPending }) =>
+                            isPending ? "pending" : isActive ? "bg-red-600 px-2 rounded py-1" : ""}>Home</NavLink>
+                        <NavLink to='all-movies' className={({ isActive, isPending }) =>
+                            isPending ? "pending" : isActive ? "bg-red-600 px-2 rounded py-1" : ""}>All Movies</NavLink>
+                        <NavLink to='/add-movie' className={({ isActive, isPending }) =>
+                            isPending ? "pending" : isActive ? "bg-red-600 px-2 rounded py-1" : ""}>Add Movie</NavLink>
+                        <NavLink to={`/my-favorites/${user?.email}`} className={({ isActive, isPending }) =>
+                            isPending ? "pending" : isActive ? "bg-red-600 px-2 rounded py-1" : ""}>My Favorites</NavLink>
                     </ul>
                 </div>
                 <div className="navbar-end">
