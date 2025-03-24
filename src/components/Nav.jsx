@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../providers/AuthProvider';
+import profile from '../assets/no-profile-picture-15257.png'
 
 const Nav = () => {
     const { user, logOut } = useContext(AuthContext)
     const navigate = useNavigate()
+    console.log(user);
 
     return (
         <div>
@@ -32,7 +34,7 @@ const Nav = () => {
                             <div className="btn btn-ghost btn-circle avatar">
 
                                 <div className="w-10 rounded-full">
-                                    <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" alt="User Avatar" />
+                                    <img src={user?user.photoURL:profile} alt="User Avatar" />
                                 </div>
                             </div>
 
