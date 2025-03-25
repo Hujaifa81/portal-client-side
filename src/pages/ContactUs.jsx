@@ -2,9 +2,11 @@ import { useContext } from "react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { AuthContext } from "../providers/AuthProvider";
+import useTitle from "../hooks/UseTitle";
 
 const ContactUs = () => {
     const {user}=useContext(AuthContext)
+    useTitle()
     const [formData, setFormData] = useState({
         name: user?.displayName || "",
         email: user?.email || "",

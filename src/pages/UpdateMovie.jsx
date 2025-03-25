@@ -4,10 +4,12 @@ import ReactStarsRating from "react-awesome-stars-rating";
 import Select from "react-select";
 import { AuthContext } from "../providers/AuthProvider";
 import { useLocation } from "react-router-dom";
+import useTitle from "../hooks/UseTitle";
 
 const UpdateMovie = () => {
     const {user}=useContext(AuthContext)
     const {state}=useLocation()
+    useTitle()
     const { register, handleSubmit, setValue, trigger, formState: { errors } } = useForm();
     const [rating, setRating] = useState(state.rating || 0);
     const genresOptions = [

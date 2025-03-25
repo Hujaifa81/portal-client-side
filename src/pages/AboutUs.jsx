@@ -1,5 +1,7 @@
 import image from '../assets/banner-3.jpg'
+import useTitle from '../hooks/UseTitle';
 const AboutUs = () => {
+    useTitle()
     return (
         <div className="max-w-4xl mx-auto p-6 mt-10 text-center">
             <h1 className="text-4xl font-bold text-red-600">About Us</h1>

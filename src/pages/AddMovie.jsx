@@ -3,11 +3,13 @@ import { useForm } from "react-hook-form";
 import ReactStarsRating from "react-awesome-stars-rating";
 import Select from "react-select";
 import { AuthContext } from "../providers/AuthProvider";
+import useTitle from "../hooks/UseTitle";
 
 const AddMovie = () => {
     const {user}=useContext(AuthContext)
     const { register, handleSubmit, setValue, trigger, formState: { errors } } = useForm();
     const [rating, setRating] = useState(0);
+    useTitle()
     const genresOptions = [
         { value: "Comedy", label: "Comedy" },
         { value: "Drama", label: "Drama" },
@@ -215,7 +217,7 @@ const AddMovie = () => {
                         {errors.summary && <p className="text-red-500">{errors.summary.message}</p>}
                     </div>
 
-                    <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">Add Movie</button>
+                    <button type="submit" className="bg-red-600 text-white px-4 py-2 rounded">Add Movie</button>
                 </form>
             </div>
         </div>

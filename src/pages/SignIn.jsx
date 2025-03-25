@@ -3,10 +3,11 @@ import { useForm } from 'react-hook-form';
 import { AuthContext } from '../providers/AuthProvider';
 import toast from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import useTitle from '../hooks/UseTitle';
 
 const SignIn = () => {
     const { emailSignIn, googleSignIn } = useContext(AuthContext)
-    
+    useTitle()
     const navigate = useNavigate()
     const location = useLocation();
 

@@ -1,10 +1,12 @@
 import React, {  useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import SingleCard from '../components/SingleCard';
+import useTitle from '../hooks/UseTitle';
 
 const AllMovies = () => {
     const [movies,setMovies] = useState(useLoaderData())
     const [search, setSearch] = useState('')
+    useTitle()
     useEffect(() => {
         fetch(`https://portal-backend-seven.vercel.app/movies?search=${search}`)
             .then(res => res.json())

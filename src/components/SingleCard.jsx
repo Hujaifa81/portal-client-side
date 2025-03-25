@@ -4,13 +4,13 @@ import AwesomeStarsRating from "react-awesome-stars-rating";
 import StarRatings from "react-star-ratings";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
-import { AuthContext } from "../providers/AuthProvider";
 
-const SingleCard = ({ movie,favorite }) => {
-    const { user } = useContext(AuthContext)
+
+const SingleCard = ({ movie,favorite,favoriteMovies,setFavoriteMovies }) => {
+   
     const { _id, title, poster, genres, duration, rating } = movie;
     
-    const navigate = useNavigate();
+    
     const handleDeleteFavorite = async () => {
         
         Swal.fire({
@@ -34,8 +34,10 @@ const SingleCard = ({ movie,favorite }) => {
                     const data = await response.json();
     
                     if (data.deletedCount === 1) {
+                        
+                        setFavoriteMovies(favoriteMovies.filter((m) => m._id !== _id));
                         toast.success("Movie deleted successfully!");
-                        navigate(`/my-favorites/${user.email}`);
+                        
                     } else {
                         Swal.fire({
                             title: "Error!",
@@ -76,7 +78,7 @@ const SingleCard = ({ movie,favorite }) => {
                     <span className="font-medium">Duration:</span> {duration} min
                 </p>
 
-                {/* Fix: Use AwesomeStarsRating and parse float */}
+                
                 <div className="flex items-center gap-2">
                     <StarRatings
                         rating={parseFloat(rating)}
@@ -90,7 +92,7 @@ const SingleCard = ({ movie,favorite }) => {
 
                 {
                     favorite?<div className="pt-2">
-                    <button onClick={handleDeleteFavorite} className="btn btn-primary w-full text-center">
+                    <button onClick={handleDeleteFavorite} className="bg-red-600 btn  w-full text-center">
                     Delete Favorite
                     </button>
                 </div>:<div className="pt-2">

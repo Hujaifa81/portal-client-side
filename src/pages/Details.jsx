@@ -5,12 +5,14 @@ import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import StarRatings from "react-star-ratings";
 import Swal from "sweetalert2";
 import { AuthContext } from "../providers/AuthProvider";
+import useTitle from "../hooks/UseTitle";
 
 const Details = () => {
     const {user}=useContext(AuthContext)
     const navigate = useNavigate();
     const movie = useLoaderData()
     const [favorite,setFavorite]=useState(false)
+    useTitle(movie.title)
     useEffect(() => {
         if (user && user.email) {  
             fetch(`https://portal-backend-seven.vercel.app/find-favorite-movie?email=${user.email}&movieId=${movie._id}`)
@@ -149,9 +151,9 @@ const Details = () => {
 
                 {/* Action Buttons */}
                 <div className="flex space-x-4 mt-4">
-                    <button className="btn btn-primary" onClick={handleDelete}>Delete Movie</button>
+                    <button className="btn bg-red-600" onClick={handleDelete}>Delete Movie</button>
                     <button className="btn btn-outline" disabled={favorite} onClick={handleAddToFavorite}>Add to Favorite</button>
-                    <button className="btn btn-primary"><Link to='/update-movie' state={movie}>Update Movie</Link></button>
+                    <button className="btn bg-red-600"><Link to='/update-movie' state={movie}>Update Movie</Link></button>
                 </div>
             </div>
         </div>

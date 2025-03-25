@@ -3,12 +3,13 @@ import { useForm } from 'react-hook-form';
 import { AuthContext } from '../providers/AuthProvider';
 import { updateProfile } from 'firebase/auth';
 import { Link, useNavigate } from 'react-router-dom';
+import useTitle from '../hooks/UseTitle';
 
 const SignUp = () => {
     const {emailRegister}=useContext(AuthContext)
     const navigate=useNavigate()
     const { register, handleSubmit, formState: { errors } } = useForm();
-
+    useTitle()
     const onSubmit = async (data) => {
         
         emailRegister(data.email,data.password)
