@@ -101,7 +101,7 @@ const Details = () => {
     };
     
     return (
-        <div className="max-w-4xl mx-auto p-6 shadow-lg bg-white dark:bg-gray-800 rounded-lg">
+        <div className="max-w-4xl mx-auto p-6 shadow-lg bg-white  rounded-lg">
             {/* Movie Poster */}
             <div className="relative w-full h-96">
                 <img
