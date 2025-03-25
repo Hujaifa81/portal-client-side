@@ -5,6 +5,7 @@ import Select from "react-select";
 import { AuthContext } from "../providers/AuthProvider";
 import { useLocation } from "react-router-dom";
 import useTitle from "../hooks/UseTitle";
+import toast from "react-hot-toast";
 
 const UpdateMovie = () => {
     const {user}=useContext(AuthContext)
@@ -12,6 +13,8 @@ const UpdateMovie = () => {
     useTitle()
     const { register, handleSubmit, setValue, trigger, formState: { errors } } = useForm();
     const [rating, setRating] = useState(state.rating || 0);
+    const [genres, setGenres] = useState(state.genres?.map(g => ({ value: g, label: g })));
+    const [year, setYear] = useState({ value: state.year, label: state.year });
     const genresOptions = [
         { value: "Comedy", label: "Comedy" },
         { value: "Drama", label: "Drama" },
@@ -34,11 +37,13 @@ const UpdateMovie = () => {
 
     // Handle genres selection manually
     const handleGenresChange = (selectedOptions) => {
+        setGenres(selectedOptions);
         setValue("genres", selectedOptions);
         trigger("genres");
     };
 
     const handleYearChange = (selectedOption) => {
+        setYear(selectedOption);
         setValue("year", selectedOption);
         trigger("year");
     };
@@ -53,14 +58,14 @@ const UpdateMovie = () => {
     const onSubmit = async (data) => {
         const updatedMovie = {
             ...data,
-            genres: data.genres.map(g => g.value),
-            year: data.year.value,
-            rating: data.rating,
+            genres: genres.map(g => g.value),
+            year: year.value,
+            rating: rating,
             duration: parseFloat(data.duration),
             email: user.email,
         };
         
-        console.log(updatedMovie);  // Now you're logging the correct object
+        
     
         const response = await fetch(`https://portal-backend-seven.vercel.app/update/${state._id}`, {
             method: "PUT",
@@ -69,7 +74,7 @@ const UpdateMovie = () => {
         });
     
         const result = await response.json();
-        alert("Movie updated successfully!");
+        toast.success("Movie updated successfully!");
     };
     
     
@@ -105,11 +110,12 @@ const UpdateMovie = () => {
                     <div>
                         <label className="block font-medium">Genre</label>
                         <Select
-                            defaultValue={state.genres.map(g => ({ value: g, label: g }))} // Set default value
+                            defaultValue={genres.map(g => ({ value: g, label: g }))} // Set default value
                             isMulti
                             options={genresOptions}
                             onChange={handleGenresChange}
                             placeholder="Select genres"
+                            value={genres}
                             styles={{
                                 control: (provided, state) => ({
                                     ...provided,
@@ -133,7 +139,7 @@ const UpdateMovie = () => {
                                 }),
                             }}
                         />
-                        <input type="hidden" defaultValue={state.genres.map(g => ({ value: g, label: g }))} {...register("genres", {
+                        <input type="hidden" defaultValue={genres.map(g => ({ value: g }))}  {...register("genres", {
                                 required: "Genres is required",
                                 
                             })}/>
@@ -155,10 +161,11 @@ const UpdateMovie = () => {
                     <div>
                         <label className="block font-medium">Release Year</label>
                         <Select
-                            defaultValue={years.find(y => y.value === state.year)} // Set default value
+                            defaultValue={years.find(y => y.value === year.value)} // Set default value
                             options={years}
                             onChange={handleYearChange}
                             placeholder="Select Year"
+                            value={year}
                             styles={{
                                 control: (provided, state) => ({
                                     ...provided,
@@ -182,7 +189,7 @@ const UpdateMovie = () => {
                                 }),
                             }}
                         />
-                        <input type="hidden" value={years.find(y => y.value === state.year)} {...register("year", {
+                        <input type="hidden" value={year.value} {...register("year", {
                                 required: "Year is required",
                                 
                             })}/>
@@ -204,7 +211,7 @@ const UpdateMovie = () => {
                                 activeColor="gold"
                             />
                         </div>
-                        <input type="hidden" value={rating} {...register("rating", {
+                        <input type="hidden" defaultValue={rating} {...register("rating", {
                                 required: "rating is required",
                                 
                             })}/>

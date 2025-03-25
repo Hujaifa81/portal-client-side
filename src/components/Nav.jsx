@@ -10,7 +10,7 @@ const Nav = () => {
 
     return (
         <div>
-            <div className="navbar  px-4 relative z-10 bg-gray-400  bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10  shadow-sm">
+            <div className="navbar  px-4 relative z-10  shadow-sm">
                 <div className="navbar-start">
                     <NavLink to='/'><span className="text-xl px-0 font-bold">StreamFlix</span></NavLink>
                 </div>

@@ -4,11 +4,14 @@ import ReactStarsRating from "react-awesome-stars-rating";
 import Select from "react-select";
 import { AuthContext } from "../providers/AuthProvider";
 import useTitle from "../hooks/UseTitle";
+import toast from "react-hot-toast";
 
 const AddMovie = () => {
-    const {user}=useContext(AuthContext)
-    const { register, handleSubmit, setValue, trigger, formState: { errors } } = useForm();
+    const { user } = useContext(AuthContext)
+    const { register, handleSubmit, setValue, trigger, reset, formState: { errors } } = useForm();
     const [rating, setRating] = useState(0);
+    const [selectedGenres, setSelectedGenres] = useState([]);
+    const [selectedYear, setSelectedYear] = useState(null);
     useTitle()
     const genresOptions = [
         { value: "Comedy", label: "Comedy" },
@@ -32,11 +35,13 @@ const AddMovie = () => {
 
     // Handle genres selection manually
     const handleGenresChange = (selectedOptions) => {
+        setSelectedGenres(selectedOptions);
         setValue("genres", selectedOptions);
         trigger("genres");
     };
 
     const handleYearChange = (selectedOption) => {
+        setSelectedYear(selectedOption);
         setValue("year", selectedOption);
         trigger("year");
     };
@@ -49,7 +54,7 @@ const AddMovie = () => {
     };
 
     const onSubmit = async (data) => {
-        
+
 
         const movie = {
             ...data,
@@ -57,7 +62,7 @@ const AddMovie = () => {
             year: data.year.value,
             rating: data.rating,
             duration: parseFloat(data.duration),
-            email:user.email
+            email: user.email
 
         };
 
@@ -68,8 +73,14 @@ const AddMovie = () => {
         });
 
         const result = await response.json();
-       
-        alert("Movie added successfully!");
+
+        toast.success("Movie added successfully!");
+        reset()
+        setRating(0);
+        setValue("genres", []);
+        setValue("year", null);
+        setSelectedGenres([]);
+        setSelectedYear(null);
     };
     return (
         <div>
@@ -107,6 +118,7 @@ const AddMovie = () => {
                             options={genresOptions}
                             onChange={handleGenresChange}
                             placeholder="Select genres"
+                            value={selectedGenres}
                             styles={{
                                 control: (provided, state) => ({
                                     ...provided,
@@ -131,9 +143,9 @@ const AddMovie = () => {
                             }}
                         />
                         <input type="hidden" {...register("genres", {
-                                required: "Genres is required",
-                                
-                            })}/>
+                            required: "Genres is required",
+
+                        })} />
                         {errors.genres && <p className="text-red-500">{errors.genres.message}</p>}
                     </div>
 
@@ -155,6 +167,7 @@ const AddMovie = () => {
                             options={years}
                             onChange={handleYearChange}
                             placeholder="Select Year"
+                            value={selectedYear}
                             styles={{
                                 control: (provided, state) => ({
                                     ...provided,
@@ -179,9 +192,9 @@ const AddMovie = () => {
                             }}
                         />
                         <input type="hidden" {...register("year", {
-                                required: "Year is required",
-                                
-                            })}/>
+                            required: "Year is required",
+
+                        })} />
                         {errors.year && <p className="text-red-500">{errors.year.message}</p>}
                     </div>
 
@@ -200,9 +213,9 @@ const AddMovie = () => {
                             />
                         </div>
                         <input type="hidden" {...register("rating", {
-                                required: "rating is required",
-                                
-                            })}/>
+                            required: "rating is required",
+
+                        })} />
                         {errors.rating && <p className="text-red-500">{errors.rating.message}</p>}
                     </div>
 

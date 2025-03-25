@@ -1,5 +1,5 @@
 import React, {  useEffect, useState } from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 import SingleCard from './SingleCard';
 
 const TrendingMovies = () => {
@@ -18,6 +18,9 @@ const TrendingMovies = () => {
                 {
                     movies.map(movie=><SingleCard key={movie._id} movie={movie}></SingleCard>)
                 }
+             </div>
+             <div className='flex justify-center items-center'>
+                    <button className="btn bg-red-600 text-white rounded-lg px-4 py-2 mt-4"><Link to='/all-movies'>See All Movies</Link></button>
              </div>
 
         </div>

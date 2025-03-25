@@ -4,6 +4,7 @@ import { AuthContext } from '../providers/AuthProvider';
 import { updateProfile } from 'firebase/auth';
 import { Link, useNavigate } from 'react-router-dom';
 import useTitle from '../hooks/UseTitle';
+import { auth } from '../firebase/firebase.config';
 
 const SignUp = () => {
     const {emailRegister}=useContext(AuthContext)
@@ -22,7 +23,7 @@ const SignUp = () => {
             
             updateProfile(result.user, {
                         displayName: currentUser.name, 
-                        photoURL: currentUser.url,
+                        photoURL: currentUser.photo,
                         email:currentUser.email
                       })
             .then(()=>{

@@ -7,7 +7,7 @@ const MainLayout = () => {
     return (
         <div className='font-poppins'>
             <Nav></Nav>
-            <div className='bg-white'>
+            <div className='bg-white min-h-screen'>
             <Outlet></Outlet>
             </div>
             
