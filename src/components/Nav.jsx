@@ -57,13 +57,13 @@ const Nav = () => {
                                     <button className="btn btn-error btn-sm w-full mt-2" onClick={() => {
                                         logOut()
                                             .then(() => {
-                                                navigate('/')
+                                                navigate('/sign-in')
                                             })
                                     }}>Logout</button>
                                 </div>
                             </div> :
                                 <div className='flex justify-around gap-4 items-center'>
-                                    <button className="btn  bg-transparent border text-black font-bold rounded-md"><Link to='/sign-up'>Sign Up</Link></button>
+                                    <button className="btn  bg-transparent border text-black font-bold rounded-md dark:text-white"><Link to='/sign-up'>Sign Up</Link></button>
                                     <button className="btn bg-red-500 text-white  font-bold rounded-md"><Link to='/sign-in'>Sign In</Link></button>
                                 </div>
                         }
