@@ -85,13 +85,13 @@ const AddMovie = () => {
     return (
         <div>
             <div className="max-w-xl mx-auto p-5">
-                <h2 className="text-2xl font-bold mb-4">Add Movie</h2>
+                <h2 className="text-2xl font-bold mb-4 dark:text-white">Add Movie</h2>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
 
                     {/* Movie Poster */}
                     <div>
-                        <label className="block font-medium">Movie Poster URL</label>
-                        <input type="url" className="w-full border p-2 rounded"
+                        <label className="block font-medium dark:text-white">Movie Poster URL</label>
+                        <input type="url" className="w-full border p-2 rounded dark:bg-gray-800"
                             {...register("poster", {
                                 required: "Poster URL is required",
                                 pattern: { value: /^(http|https):\/\/[^ "\n]+$/, message: "Invalid URL" }
@@ -101,8 +101,8 @@ const AddMovie = () => {
 
                     {/* Movie Title */}
                     <div>
-                        <label className="block font-medium">Movie Title</label>
-                        <input type="text" className="w-full border p-2 rounded"
+                        <label className="block font-medium dark:text-white">Movie Title</label>
+                        <input type="text" className="w-full border p-2 rounded dark:bg-gray-800"
                             {...register("title", {
                                 required: "Title is required",
                                 minLength: { value: 2, message: "Title must be at least 2 characters" }
@@ -112,7 +112,7 @@ const AddMovie = () => {
 
                     {/* Genre Selection (Multi-Select) */}
                     <div>
-                        <label className="block font-medium">Genre</label>
+                        <label className="block font-medium dark:text-white">Genre</label>
                         <Select
                             isMulti
                             options={genresOptions}
@@ -120,28 +120,41 @@ const AddMovie = () => {
                             placeholder="Select genres"
                             value={selectedGenres}
                             styles={{
-                                control: (provided, state) => ({
-                                    ...provided,
-                                    borderColor: state.isFocused ? 'black' : "black",
-                                    boxShadow: state.isFocused ? '0 0 0 1px black' : provided.boxShadow,
-                                    '&:hover': {
-                                        borderColor: state.isFocused ? 'black' : "black",
-                                    },
-                                }),
+                                control: (provided, state) => {
+                                    const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+                                    return {
+                                        ...provided,
+                                        backgroundColor: isDark ? "#1e293b" : "#ffffff", // Dark: Slate-800, Light: White
+                                        color: isDark ? "#f8fafc" : "#000000", // Dark: Text color, Light: Default
+                                        borderColor: state.isFocused ? (isDark ? "#94a3b8" : "black") : "black",
+                                        boxShadow: state.isFocused ? `0 0 0 1px ${isDark ? "#94a3b8" : "black"}` : provided.boxShadow,
+                                        "&:hover": {
+                                            borderColor: isDark ? "#94a3b8" : "black",
+                                        },
+                                    };
+                                },
                                 menu: (provided) => ({
                                     ...provided,
                                     zIndex: 9999,
                                 }),
-                                option: (provided, state) => ({
-                                    ...provided,
-                                    backgroundColor: state.isSelected ? 'black' : provided.backgroundColor,
-                                    color: state.isSelected ? 'white' : provided.color,
-                                    '&:hover': {
-                                        backgroundColor: state.isSelected ? 'black' : '#f0f0f0',
-                                    },
-                                }),
+                                option: (provided, state) => {
+                                    const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+                                    return {
+                                        ...provided,
+                                        backgroundColor: state.isSelected
+                                            ? (isDark ? "#0f172a" : "black") // Dark: Slate-900, Light: Black
+                                            : (isDark ? "#1e293b" : provided.backgroundColor), // Dark: Slate-800
+                                        color: state.isSelected ? "white" : (isDark ? "#f8fafc" : provided.color),
+                                        "&:hover": {
+                                            backgroundColor: state.isSelected
+                                                ? (isDark ? "#0f172a" : "black")
+                                                : (isDark ? "#334155" : "#f0f0f0"), // Dark: Slate-700, Light: Gray
+                                        },
+                                    };
+                                },
                             }}
                         />
+
                         <input type="hidden" {...register("genres", {
                             required: "Genres is required",
 
@@ -151,8 +164,8 @@ const AddMovie = () => {
 
                     {/* Duration */}
                     <div>
-                        <label className="block font-medium">Duration (minutes)</label>
-                        <input type="number" className="w-full border p-2 rounded"
+                        <label className="block font-medium dark:text-white">Duration (minutes)</label>
+                        <input type="number" className="w-full border p-2 rounded dark:bg-gray-800"
                             {...register("duration", {
                                 required: "Duration is required",
                                 min: { value: 60, message: "Duration must be at least 60 minutes" }
@@ -162,35 +175,49 @@ const AddMovie = () => {
 
                     {/* Release Year */}
                     <div>
-                        <label className="block font-medium">Release Year</label>
+                        <label className="block font- dark:text-white">Release Year</label>
                         <Select
                             options={years}
                             onChange={handleYearChange}
                             placeholder="Select Year"
                             value={selectedYear}
                             styles={{
-                                control: (provided, state) => ({
-                                    ...provided,
-                                    borderColor: state.isFocused ? 'black' : "black",
-                                    boxShadow: state.isFocused ? '0 0 0 1px black' : provided.boxShadow,
-                                    '&:hover': {
-                                        borderColor: state.isFocused ? 'black' : "black",
-                                    },
-                                }),
+                                control: (provided, state) => {
+                                    const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+                                    return {
+                                        ...provided,
+                                        backgroundColor: isDark ? "#1e293b" : "white", // Dark: Slate-800, Light: White
+                                        color: isDark ? "#f8fafc" : "#000000", // Dark: Light-Text, Light: Black
+                                        borderColor: state.isFocused ? (isDark ? "#94a3b8" : "black") : "black",
+                                        boxShadow: state.isFocused ? `0 0 0 1px ${isDark ? "#94a3b8" : "black"}` : provided.boxShadow,
+                                        "&:hover": {
+                                            borderColor: isDark ? "#94a3b8" : "black",
+                                        },
+                                    };
+                                },
                                 menu: (provided) => ({
                                     ...provided,
                                     zIndex: 9999,
+                                    backgroundColor: document.documentElement.getAttribute("data-theme") === "dark" ? "#1e293b" : "#ffffff",
                                 }),
-                                option: (provided, state) => ({
-                                    ...provided,
-                                    backgroundColor: state.isSelected ? 'black' : provided.backgroundColor,
-                                    color: state.isSelected ? 'white' : provided.color,
-                                    '&:hover': {
-                                        backgroundColor: state.isSelected ? 'black' : '#f0f0f0',
-                                    },
-                                }),
+                                option: (provided, state) => {
+                                    const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+                                    return {
+                                        ...provided,
+                                        backgroundColor: state.isSelected
+                                            ? (isDark ? "#0f172a" : "black") // Dark: Slate-900, Light: Black
+                                            : (isDark ? "#1e293b" : provided.backgroundColor), // Dark: Slate-800
+                                        color: state.isSelected ? "white" : (isDark ? "#f8fafc" : provided.color),
+                                        "&:hover": {
+                                            backgroundColor: state.isSelected
+                                                ? (isDark ? "#0f172a" : "black")
+                                                : (isDark ? "#334155" : "#f0f0f0"), // Dark: Slate-700, Light: Gray
+                                        },
+                                    };
+                                },
                             }}
                         />
+
                         <input type="hidden" {...register("year", {
                             required: "Year is required",
 
@@ -200,7 +227,7 @@ const AddMovie = () => {
 
                     {/* Rating */}
                     <div>
-                        <label className="block font-medium">Rating</label>
+                        <label className="block font-medium dark:text-white">Rating</label>
                         <div className="flex items-center">
                             <ReactStarsRating
                                 value={rating}
@@ -221,8 +248,8 @@ const AddMovie = () => {
 
                     {/* Summary */}
                     <div>
-                        <label className="block font-medium">Summary</label>
-                        <textarea className="w-full border p-2 rounded" rows={3}
+                        <label className="block font-medium dark:text-white">Summary</label>
+                        <textarea className="w-full border p-2 rounded dark:bg-gray-800" rows={3}
                             {...register("summary", {
                                 required: "Summary is required",
                                 minLength: { value: 10, message: "Summary must be at least 10 characters" }

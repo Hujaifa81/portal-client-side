@@ -64,7 +64,7 @@ const SingleCard = ({ movie,favorite,favoriteMovies,setFavoriteMovies }) => {
             </figure>
 
             <div className="p-4 space-y-2">
-                <h2 className="text-lg font-semibold">{title}</h2>
+                <h2 className="text-lg font-semibold dark:text-white">{title}</h2>
 
                 <div className="flex flex-wrap gap-2">
                     {genres.map((g, index) => (

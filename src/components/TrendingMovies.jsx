@@ -6,7 +6,7 @@ const TrendingMovies = () => {
     const [movies, setMovies] = useState([]);
     const loadedMovies=useLoaderData()
     useEffect(()=>{
-        const slicedMovies=loadedMovies.slice(0,4)
+        const slicedMovies=loadedMovies.slice(0,6)
         setMovies(slicedMovies)
     },[loadedMovies])
     

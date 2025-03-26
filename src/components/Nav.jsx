@@ -9,7 +9,7 @@ const Nav = () => {
     const handleTheme = () => {
 
         const theme = document.querySelector('.theme-controller')
-        console.log(theme.checked);
+        
         if (theme.checked) {
             document.documentElement.setAttribute('data-theme', 'dark')
         } else {
@@ -19,7 +19,7 @@ const Nav = () => {
 
     return (
         <div>
-            <div className="navbar  px-4 relative z-10  shadow-sm">
+            <div className="navbar  px-4 relative z-10  shadow-sm dark:bg-black dark:text-white">
                 <div className="navbar-start">
                     <NavLink to='/'><span className="text-xl px-0 font-bold">StreamFlix</span></NavLink>
                 </div>

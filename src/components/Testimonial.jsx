@@ -1,7 +1,7 @@
 import noProfile from '../assets/no-profile-picture-15257.png'
 const Testimonial = () => {
     return (
-      <section className="py-12 bg-white">
+      <section className="py-12 bg-white dark:bg-black">
         <div className="max-w-5xl mx-auto text-center">
           <h2 className="text-3xl font-bold  text-red-600">What Our Users Say</h2>
           <p className="text-gray-600 mt-2">Hear from our happy clients and users.</p>
