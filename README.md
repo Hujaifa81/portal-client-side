@@ -1,7 +1,7 @@
 # Movie Portal
 
 ## Live Site URL
-[Visit Movie Portal](#)
+[Visit Movie Portal](https://portal-c6157.web.app)
 
 ## Description
 Movie Portal is a user-friendly platform that allows users to explore, add, and manage movies efficiently. Users can add their favorite movies, view details, and delete them as needed while maintaining a personalized favorite list.
@@ -68,6 +68,6 @@ Movie Portal is a user-friendly platform that allows users to explore, add, and 
 This project is licensed under the MIT License.
 
 ---
-Developed by [Your Name](#)
+
 
 
