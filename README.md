@@ -18,7 +18,7 @@ Movie Portal is a user-friendly platform that allows users to explore, add, and 
 - **Interactive UI:** Uses Toast notifications and Sweet Alerts for better interaction.
 
 ## Technologies Used
-- **Frontend:** React, Tailwind CSS, DaisyUI, React Router, React Select, React Hook Form
+- **Frontend:** React, Tailwind CSS, DaisyUI, React Router, React Select, React Hook Form,React Awesome Rating Stars,React Hot Toast,React Sweet Alert
 - **Backend:** Node.js, Express.js, MongoDB
 - **Authentication:** Firebase Authentication (Email & Google Sign-in)
 - **Deployment:** Vercel (Backend), Firebase (Frontend)

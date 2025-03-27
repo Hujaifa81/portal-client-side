@@ -40,7 +40,7 @@ const SignIn = () => {
     }
     return (
         <div>
-            <div className="max-w-xl mx-auto p-5 flex flex-col justify-center py-8 dark:bg-black">
+            <div className="max-w-xl mx-auto p-5 flex flex-col justify-center py-8 dark:bg-black bg-white">
                 <h2 className="text-2xl font-bold mb-4 text-center dark:text-white">Sign In</h2>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
 

@@ -150,7 +150,7 @@ const Details = () => {
                 </p>
 
                 {/* Action Buttons */}
-                <div className="flex space-x-4 mt-4">
+                <div className="flex md:space-x-4 mt-4 gap-0.5">
                     <button className="btn bg-red-600" onClick={handleDelete}>Delete Movie</button>
                     <button className="btn btn-outline" disabled={favorite} onClick={handleAddToFavorite}>Add to Favorite</button>
                     <button className="btn bg-red-600"><Link to='/update-movie' state={movie}>Update Movie</Link></button>
