@@ -63,24 +63,28 @@ const Details = () => {
                         headers: { "Content-Type": "application/json" }
                     });
     
-                    
-    
                     const data = await response.json();
     
                     if (data.deletedCount === 1) {
                         toast.success("Movie deleted successfully!");
-                        const response = await fetch(`https://portal-backend-seven.vercel.app/find-favorite-movie?email=${user.email}&movieId=${movie._id}`);
-                        const data = await response.json();
-                        if (data) {
-                            const response = await fetch(`https://portal-backend-seven.vercel.app/delete-favoriteMovie-with-email-movieId?email=${user.email}&movieId=${movie._id}`, {
-                                method: "DELETE",
-                                headers: { "Content-Type": "application/json" }
-                            });
-            
-                             const resultCheck=await response.json();
-                             navigate("/all-movies");
+    
+                        // Fetch to check if the movie exists in favorites
+                        const checkResponse = await fetch(`https://portal-backend-seven.vercel.app/find-favorite-movie?email=${user.email}&movieId=${movie._id}`);
+                        
+                        // Prevent JSON parsing error by checking if the response has content
+                        const textData = await checkResponse.text();
+                        if (textData) {
+                            const data = JSON.parse(textData);
+                            
+                            if (data) {
+                                await fetch(`https://portal-backend-seven.vercel.app/delete-favoriteMovie-with-email-movieId?email=${user.email}&movieId=${movie._id}`, {
+                                    method: "DELETE",
+                                    headers: { "Content-Type": "application/json" }
+                                });
+                            }
                         }
                         
+                        navigate("/all-movies");
                     } else {
                         Swal.fire({
                             title: "Error!",
@@ -89,7 +93,6 @@ const Details = () => {
                         });
                     }
                 } catch (error) {
-                    console.error("Error deleting movie:", error);
                     Swal.fire({
                         title: "Error!",
                         text: "Something went wrong. Please try again.",
@@ -99,6 +102,7 @@ const Details = () => {
             }
         });
     };
+    
     
     return (
         <div className="max-w-4xl mx-auto p-6 shadow-lg bg-white dark:bg-gray-800 rounded-lg">
